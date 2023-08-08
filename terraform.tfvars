@@ -1,0 +1,8 @@
+project_name         = "Nodeapp"
+vpc_cidr_block       = "10.0.0.0/16"
+subnet_az_a          = "10.0.10.0/24"
+subnet_az_b          = "10.0.11.0/24"
+my_public_ip         = "185.79.3.35/32"
+asg_max_size         = "4"
+asg_min_size         = "2"
+asg_desired_capacity = "2"
