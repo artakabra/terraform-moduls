@@ -18,14 +18,11 @@ resource "aws_internet_gateway" "web_igw" {
   }
 }
 
-# Use data source to get all availability zones in region
-data "aws_availability_zones" "availability_zones" {}
-
 # Create 1st public subnet
 resource "aws_subnet" "sub_az_a" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.subnet_az_a_cidr
-  availability_zone       = data.aws_availability_zones.availability_zones.names[0]
+  availability_zone       = var.azs[0]
   map_public_ip_on_launch = true
 
   tags = {
@@ -37,7 +34,7 @@ resource "aws_subnet" "sub_az_a" {
 resource "aws_subnet" "sub_az_b" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.subnet_az_b_cidr
-  availability_zone       = data.aws_availability_zones.availability_zones.names[1]
+  availability_zone       = var.azs[1]
   map_public_ip_on_launch = true
 
   tags = {

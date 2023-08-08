@@ -5,7 +5,7 @@ resource "aws_lb" "application_lb" {
   ip_address_type    = "ipv4"
   load_balancer_type = "application"
   security_groups = [var.alb_security_group_id]
-  subnets = [var.sub_az_a, var.sub_az_b]
+  subnets = [var.subnet_az_a_id, var.subnet_az_b_id]
 
   tags = {
     Name = "${var.project_name}-alb"
