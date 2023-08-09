@@ -5,7 +5,7 @@ resource "aws_vpc" "main" {
   enable_dns_hostnames = true
 
   tags = {
-    "Name" = "${var.project_name}-vpc"
+    "Name" = "${terraform.workspace}-${var.project_name}-vpc"
   }
 }
 
@@ -14,7 +14,7 @@ resource "aws_internet_gateway" "web_igw" {
   vpc_id = aws_vpc.main.id
   
   tags = {
-    "Name" = "${var.project_name}-igw"
+    "Name" = "${terraform.workspace}-${var.project_name}-igw"
   }
 }
 
@@ -26,7 +26,7 @@ resource "aws_subnet" "sub_az_a" {
   map_public_ip_on_launch = true
 
   tags = {
-    "Name" = "public_subnet_az_a"
+    "Name" = "${terraform.workspace}-public_subnet_az_a"
   }
 }
 
@@ -38,7 +38,7 @@ resource "aws_subnet" "sub_az_b" {
   map_public_ip_on_launch = true
 
   tags = {
-    "Name" = "public_subnet_az_b"
+    "Name" = "${terraform.workspace}-public_subnet_az_b"
   }
 }
 
@@ -52,7 +52,7 @@ resource "aws_route_table" "main_vpc_rt" {
   }
 
   tags = {
-    "Name" = "Route to internet"
+    "Name" = "${terraform.workspace}_Route_to_internet"
   }
 }
 

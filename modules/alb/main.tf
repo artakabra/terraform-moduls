@@ -1,6 +1,6 @@
 # Create Application Load Balancer
 resource "aws_lb" "application_lb" {
-  name               = "${var.project_name}-alb"
+  name               = "${terraform.workspace}-${var.project_name}-alb"
   internal           = false
   ip_address_type    = "ipv4"
   load_balancer_type = "application"
@@ -8,13 +8,13 @@ resource "aws_lb" "application_lb" {
   subnets = [var.subnet_az_a_id, var.subnet_az_b_id]
 
   tags = {
-    Name = "${var.project_name}-alb"
+    Name = "${terraform.workspace}-${var.project_name}-alb"
   }
 }
 
 # Create alb target group
 resource "aws_lb_target_group" "target-group" {
-  name        = "${var.project_name}-tg"
+  name        = "${terraform.workspace}-${var.project_name}-tg"
   port        = 3000
   protocol    = "HTTP"
   target_type = "instance"

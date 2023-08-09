@@ -1,5 +1,5 @@
 resource "aws_launch_template" "node_lt" {
-  name          = "${var.project_name}-LT"
+  name          = "${terraform.workspace}-${var.project_name}-LT"
   image_id      = var.amis["${var.aws_region}"]
   instance_type = var.instance_type
   vpc_security_group_ids = [var.inctance_security_group_id,]
@@ -25,7 +25,7 @@ EOF
 }
 
 resource "aws_autoscaling_group" "web" {
-  name                      = "${var.project_name}-asg"
+  name                      = "${terraform.workspace}-${var.project_name}-asg"
   wait_for_capacity_timeout = "5m"
   health_check_grace_period = "300"
   health_check_type         = "EC2"
@@ -61,13 +61,13 @@ resource "aws_autoscaling_group" "web" {
 
   tag {
     key                 = "Name"
-    value               = "web"
+    value               = "${terraform.workspace}-instance"
     propagate_at_launch = true
   }
 }
 
 # Using my local public key
 resource "aws_key_pair" "vm_key" {
-  key_name   = "id_rsa"
+  key_name   = "${terraform.workspace}-id_rsa"
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC4XrMLieHYyrhXakJhudyfIp9rgFRZDeYKrlPfBB2t+9Yq4favh+e7AVszU2R3fwP5RDrShm9IHp6WJSeDtAGFfHGuIiJqKFtr5kG24EqALM0/5uk6pC1Lzh2mKVSTg6wIHZcHcdgqO83c3LtySAw8hiStQHeFlW2ZvbU3MikBg45J2Wi4g0oWoICKDga+TH/r/iQQXG19nzWg9fsafDKg51nZH8Fnkuca5M8u0eV6uC7YXFHT76dw/TF6lFw2r5Rzq93m6SRMwzufr96y7b0QgZiqeWWHklwaahwUNx5Q0qmdG37N9aj5F3+e7WlIw9Db0z9f1i7qtfGWd+/hewkN1YrXWW7pfNwbfJQvSDRoTY+b7bPjAjDW26ivsAN2FzYYOnMLGIlxJo2wissyjD1fZLnnua6LnGiR8SBp6qmN1ZHUVB4ap/Uoc/Em0U5Ebks5WJxHw7tctYN4h7nzwbsKtztUQLehz4MM99BNYIUddiO/xDk9gA0fXv1gLC1QNF0= Lenovo@LAPTOP-ATQHB6OO"
 }

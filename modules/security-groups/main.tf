@@ -21,7 +21,7 @@ resource "aws_security_group" "alb_security_group" {
   }
 
   tags = {
-    "Name" = "alb security group"
+    "Name" = "${terraform.workspace}-alb_security_group"
   }
 }
 
@@ -55,6 +55,6 @@ resource "aws_security_group" "inctance_security_group" {
   }
 
   tags = {
-    "Name" = "inctance security group"
+    "Name" = "${terraform.workspace}-inctance_security_group"
   }
 }
