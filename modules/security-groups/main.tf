@@ -13,14 +13,6 @@ resource "aws_security_group" "alb_security_group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
-    description = "node-app access"
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
@@ -45,6 +37,14 @@ resource "aws_security_group" "inctance_security_group" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = [var.my_public_ip]
+  }
+
+  ingress {
+    description = "node-app access"
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {

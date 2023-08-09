@@ -1,6 +1,5 @@
 provider "aws" {
-  region  = var.aws_region
-  profile = "intern"
+  region = var.aws_region
 }
 
 # Create VPC
@@ -28,4 +27,19 @@ module "alb" {
   subnet_az_a_id        = module.vpc.subnet_az_a_id
   subnet_az_b_id        = module.vpc.subnet_az_b_id
   vpc_id                = module.vpc.vpc_id
+}
+
+module "asg" {
+  source                     = "./modules/asg"
+  project_name               = module.vpc.project_name
+  aws_region                 = var.aws_region
+  instance_type              = var.instance_type
+  asg_min_size               = var.asg_min_size
+  asg_desired_capacity       = var.asg_desired_capacity
+  asg_max_size               = var.asg_max_size
+  amis                       = var.amis
+  subnet_az_a_id             = module.vpc.subnet_az_a_id
+  subnet_az_b_id             = module.vpc.subnet_az_b_id
+  alb_target_group_arn       = module.alb.alb_target_group_arn
+  inctance_security_group_id = module.security_group.inctance_security_group_id
 }
