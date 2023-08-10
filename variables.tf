@@ -1,21 +1,37 @@
-variable "project_name" {}
+variable "project_name" {
+  description = "For max size use 2 instance"
+  type        = string
+  default     = "Nodeapp"
+}
 
 variable "vpc_cidr_block" {
-  default     = "10.0.0.0/16"
   description = "CIDR block for the VPC"
-  type        = string
+  type        = map(string)
+  default = {
+    "dev"   = "10.0.0.0/16",
+    "stage" = "11.0.0.0/16",
+    "prod"  = "12.0.0.0/16"
+  }
 }
 
 variable "subnet_az_a_cidr" {
-  default     = "10.0.10.0/24"
   description = "Subnet in AZ a"
-  type        = string
+  type        = map(string)
+  default = {
+    "dev"   = "10.0.10.0/24",
+    "stage" = "11.0.10.0/24",
+    "prod"  = "12.0.10.0/24"
+  }
 }
 
 variable "subnet_az_b_cidr" {
-  default     = "10.0.11.0/24"
   description = "Subnet in AZ b"
-  type        = string
+  type        = map(string)
+  default = {
+    "dev"   = "10.0.11.0/24",
+    "stage" = "11.0.11.0/24",
+    "prod"  = "12.0.11.0/24"
+  }
 }
 
 variable "my_public_ip" {
@@ -53,11 +69,23 @@ variable "ingress_ports" {
   default     = [80, 3000]
 }
 
-variable "asg_max_size" {}
+variable "asg_max_size" {
+  description = "For max size use 2 instance"
+  type        = string
+  default     = 4
+}
 
-variable "asg_min_size" {}
+variable "asg_min_size" {
+  description = "For max size use 2 instance"
+  type        = string
+  default     = 2
+}
 
-variable "asg_desired_capacity" {}
+variable "asg_desired_capacity" {
+  description = "For max size use 2 instance"
+  type        = string
+  default     = 2
+}
 
 variable "instance_type" {
   default     = "t2.micro"
