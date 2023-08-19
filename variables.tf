@@ -1,5 +1,5 @@
 variable "project_name" {
-  description = "For max size use 2 instance"
+  description = "Project name"
   type        = string
   default     = "Nodeapp"
 }
